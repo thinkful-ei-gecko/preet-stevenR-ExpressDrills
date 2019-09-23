@@ -30,15 +30,27 @@ app.get('/sum', (req, res) => {
 
 // Drill 2
 
-app.get('/cypher', (req, res) => {
+app.get('/cipher', (req, res) => {
     const { text, shift } = req.query;
-    const result = ''
-    for (let i= 0; i <= text.length; i++) {
-        results += String.fromCharCode(text.charCodeAt(i) + parseFloat(shift));
-    }
-    res.send(result);
+    const base = 'A'.charCodeAt(0);
+    const cipher = text.toUpperCase().split('').map(character => {
+        const characterCode = character.charCodeAt(0); 
+        if(characterCode < base || characterCode > (base + 26)){
+            return character
+        }
+        let difference = characterCode - base;
+        difference = difference + parseFloat(shift);
+        difference = difference % 26;
 
-})
+        const shiftedCharacter = String.fromCharCode(base + difference);
+        return shiftedCharacter;
+    })
+    const newCipher = cipher.join('');
+    res.send(newCipher);
+});
+
+//Drill 3
+
 
 app.listen(8000, () => {
     console.log('Express server is listening on port 8000');
