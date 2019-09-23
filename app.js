@@ -28,6 +28,18 @@ app.get('/sum', (req, res) => {
     //console.log(resText);
 });
 
+// Drill 2
+
+app.get('/cypher', (req, res) => {
+    const { text, shift } = req.query;
+    const result = ''
+    for (let i= 0; i <= text.length; i++) {
+        results += String.fromCharCode(text.charCodeAt(i) + parseFloat(shift));
+    }
+    res.send(result);
+
+})
+
 app.listen(8000, () => {
     console.log('Express server is listening on port 8000');
 });
